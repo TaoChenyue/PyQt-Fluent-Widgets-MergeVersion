@@ -1,0 +1,74 @@
+[tool.pdm.scripts]
+# qfr
+qfr_pyqt5 = { shell = "git clone {args} -b PyQt5 --single-branch --depth=1 qframelesswindow/pyqt5" }
+qfr_pyqt6 = { shell = "git clone {args} -b PyQt6 --single-branch --depth=1 qframelesswindow/pyqt6" }
+qfr_pyside2 = { shell = "git clone {args} -b Pyside2 --single-branch --depth=1 qframelesswindow/pyside2" }
+qfr_pyside6 = { shell = "git clone {args} -b PySide6 --single-branch --depth=1 qframelesswindow/pyside6" }
+qfr_all = { shell = "pdm run qfr_pyqt5 {args}&pdm run qfr_pyqt6 {args}&pdm run qfr_pyside2 {args}&pdm run qfr_pyside6 {args}" }
+qfr = { shell = "pdm run qfr_all https://github.com/zhiyiYo/PyQt-Frameless-Window.git" }
+
+qfl_pyqt5 = { shell = "git clone {args} -b PyQt5 --single-branch --depth=1 qfluentwidgets/pyqt5" }
+qfl_pyqt6 = { shell = "git clone {args} -b PyQt6 --single-branch --depth=1 qfluentwidgets/pyqt6" }
+qfl_pyside2 = { shell = "git clone {args} -b PySide2 --single-branch --depth=1 qfluentwidgets/pyside2" }
+qfl_pyside6 = { shell = "git clone {args} -b PySide6 --single-branch --depth=1 qfluentwidgets/pyside6" }
+qfl_all = { shell = "pdm run qfl_pyqt5 {args}&pdm run qfl_pyqt6 {args}&pdm run qfl_pyside2 {args}&pdm run qfl_pyside6 {args}" }
+qfl = { shell = "pdm run qfl_all https://github.com/zhiyiYo/PyQt-Fluent-Widgets.git" }
+qf_all = { shell = "pdm run qfr & pdm run qfl" }
+generate = { shell = "python qfgenerate/generate.py" }
+pre_build = { shell = "python qfgenerate/version.py" }
+
+[tool.pdm.version]
+source = "file"
+path = "qfgenerate/__init__.py"
+
+[tool.pdm.build]
+includes = ["qframelesswindow/*", "qfluentwidgets/*", "qfgenerate/*"]
+excludes = [
+    "*_ui.py",
+    "*_rc.py",
+    "**/.github/*",
+    "**/docs/*",
+    "**/examples/*",
+    "**/setup.py",
+    "**/requirements.txt",
+    "qframelesswindow/*/screenshot/*",
+    "qframelesswindow/*/qframelesswindow/_rc/title_bar/*",
+    "qfluentwidgets/*/plugins/*",
+    "qfluentwidgets/*/tools/*",
+    "qfluentwidgets/*/qfluentwidgets/_rc/i18n/*",
+    "qfluentwidgets/*/qfluentwidgets/_rc/images/*",
+    "qfluentwidgets/*/qfluentwidgets/_rc/qss/*",
+]
+
+[project]
+name = "PyQt-Fluent-Widgets-MergeVersion"
+dynamic = ["version"]
+description = "Merge versions of PyQt-Frameless-Window."
+authors = [
+    { name = "TaoChenyue", email = "chenyue.Tao@qq.com" },
+    { name = "zhiyiYo", email = "shokokawaii@outlook.com" },
+]
+dependencies = [
+    "PyCocoa;platform_system=='Darwin'",
+    "pyobjc;platform_system=='Darwin'",
+    "pywin32;platform_system=='Windows'",
+    "xcffib;platform_system=='Linux'",
+    "qtpy",
+    "darkdetect>=0.8.0",
+]
+readme = "README.md"
+license = { text = "GPLv3" }
+keywords = ["pyqt frameless"]
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.6.1"
+
+[project.optional-dependencies]
+full = ["scipy>=1.5.4", "pillow>=8.4.0", "colorthief>=0.2.1"]
+designer = ["pyqt5-tools>=5.15.4.3.2", "pyqt6-plugins>=6.1.0.2.2"]
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
