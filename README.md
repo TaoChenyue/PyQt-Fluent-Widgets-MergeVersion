@@ -4,14 +4,19 @@ This is a multi branch merged code repository used to solve the problem of packa
 
 ## Modifications
 
-1. Use ``git subtree``to obtain different branches and put them into same directory.
-2. Import ``qtpy``to determine which QT_API to use
+1. Clone different branches and put them into same directory.
+2. Import ``qtpy``to determine which QT_API to use.
 
 ## Install
 
 ```shell
 ## download wheel or tar.gz in Release
 pip install xxx.tar.gz
+## or build the package using pdm scripts, virtual environment is recommanded
+pip install pdm
+pdm install -G:all
+pdm run auto_build
+pip install dist/xxx.tar.gz
 ```
 
 ## Usage
@@ -31,11 +36,4 @@ import os
 os.environ["QT_API"]="pyqt6"
 
 ## Then just use the library as normal
-```
-
-## Build & Publish
-
-```shell
-pdm run auto_build
-pdm publish
 ```
