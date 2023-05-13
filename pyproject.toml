@@ -15,6 +15,7 @@ qfl_all = { shell = "pdm run qfl_pyqt5 {args}&pdm run qfl_pyqt6 {args}&pdm run q
 qfl = { shell = "pdm run qfl_all https://github.com/zhiyiYo/PyQt-Fluent-Widgets.git" }
 qf_all = { shell = "pdm run qfr & pdm run qfl" }
 generate = { shell = "python qfgenerate/generate.py" }
+auto_build = { shell = "bash ./scripts/auto.sh"}
 pre_build = { shell = "python qfgenerate/version.py" }
 
 [tool.pdm.version]

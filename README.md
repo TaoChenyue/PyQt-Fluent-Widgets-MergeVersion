@@ -33,16 +33,9 @@ os.environ["QT_API"]="pyqt6"
 ## Then just use the library as normal
 ```
 
-## Build
+## Build & Publish
 
 ```shell
-git checkout -b forbuild
-pdm run qf_all
-pdm run generate
-pdm build
-rm -rf qframelesswindow
-rm -rf qfluentwidgets
-git clean -df
-git checkout qtpy
-git branch -D forbuild
+pdm run auto_build
+pdm publish
 ```
